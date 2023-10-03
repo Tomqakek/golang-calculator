@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"unicode"
 )
@@ -21,7 +22,7 @@ func main() {
 		operatorPos := strings.IndexAny(input, "+-*/")
 		if operatorPos < 1 || operatorPos == len(input)-1 {
 			fmt.Println("Неверный формат ввода.")
-			continue
+			os.Exit(1)
 		}
 		num1 := input[:operatorPos]
 		operator := string(input[operatorPos])
@@ -34,7 +35,7 @@ func main() {
 
 		if (isArabic1 && isRoman2) || (isRoman1 && isArabic2) {
 			fmt.Println("Ошибка: Введены неправильные данные (либо арабские, либо римские числа I-X)")
-			continue
+			os.Exit(1)
 		}
 
 		var result string
@@ -52,7 +53,7 @@ func main() {
 
 		} else {
 			fmt.Println("Ошибка: Введены неправильные данные (либо арабские, либо римские числа I-X)")
-			continue
+			os.Exit(1)
 		}
 		fmt.Printf("Результат: %s\n", result)
 
@@ -94,6 +95,7 @@ func performArabicOperation(num1 int, operator string, num2 int) string {
 	case "/":
 		if num2 == 0 {
 			fmt.Println("Ошибка: Деление на ноль.")
+			os.Exit(1)
 		}
 		return fmt.Sprintf("%d", num1/num2)
 	default:
@@ -124,6 +126,7 @@ func romanToArabic(input string) int {
 func arabicToRoman(input int) string {
 	if input <= 0 {
 		return "Ошибка: Результат не может быть меньше или равен нулю"
+		os.Exit(1)
 	}
 
 	romanNumerals := []struct {
